@@ -1,3 +1,4 @@
+
 resource "aws_iam_role" "nodes" {
   name = "eks-node-group-nodes"
 
@@ -34,10 +35,7 @@ resource "aws_iam_role_policy_attachment" "amazon_ssm_managed_instance_core" {
   role       = aws_iam_role.nodes.name
 }
 
-
-
 # Create a node group for worker01
-
 resource "aws_eks_node_group" "worker01" {
   cluster_name    = aws_eks_cluster.demo.name
   node_group_name = "worker01"
@@ -47,7 +45,7 @@ resource "aws_eks_node_group" "worker01" {
   subnet_ids = aws_subnet.private[*].id
 
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t2-micro"]
+  instance_types = ["t2.micro"]
 
   scaling_config {
     desired_size = var.worker_node_count
@@ -63,7 +61,7 @@ resource "aws_eks_node_group" "worker01" {
     role = "general"
   }
 
-  version = "1.18"
+  version = "1.17" # Use a supported version
 
   depends_on = [
     aws_iam_role_policy_attachment.nodes_amazon_eks_worker_node_policy,

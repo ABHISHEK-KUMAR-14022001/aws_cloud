@@ -1,3 +1,4 @@
+
 resource "aws_iam_role" "demo" {
   name = "eks-cluster-demo"
 
@@ -25,14 +26,13 @@ resource "aws_iam_role_policy_attachment" "demo_amazon_eks_cluster_policy" {
 # Create the EKS cluster
 resource "aws_eks_cluster" "demo" {
   name     = var.eks_name
-  version  = "1.24"
+  version  = "1.17"
   role_arn = aws_iam_role.demo.arn
 
   vpc_config {
-
     endpoint_private_access = false
     endpoint_public_access = true
-    
+
     subnet_ids = tolist(concat(
       aws_subnet.private[*].id,
       aws_subnet.public[*].id
