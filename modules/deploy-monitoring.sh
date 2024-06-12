@@ -3,7 +3,7 @@
 # Variables
 CLUSTER_NAME=var.eks_name
 NAMESPACE="monitoring"
-REGION="us-west-2"  # Change to your desired AWS region
+REGION="us-west-1"  # Change to your desired AWS region
 
 # Install Helm if not already installed
 if ! command -v helm &> /dev/null; then
